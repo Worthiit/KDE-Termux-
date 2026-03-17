@@ -1,11 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 echo -e "\u001B[1;36m[+] Prepping Native KDE...\u001B[0m"
-
 pkg update -y && pkg i -y x11-repo
-pkg install -y termux-x11-nightly pulseaudio dbus-x11 \
-    plasma-desktop xterm p7zip wget
-
+pkg install -y termux-x11-nightly pulseaudio dbus-x11 plasma-desktop xterm
 curl -fsSL "https://raw.githubusercontent.com/Worthiit/KDE-Termux-/main/kde" -o $PREFIX/bin/kde
 chmod +x $PREFIX/bin/kde
-
-echo -e "\u001B[1;32m[✔] Done! Run 'kde' + open Termux:X11\u001B[0m"
+echo -e "\u001B[1;32m[✔] Done! Run 'kde'\u001B[0m"
