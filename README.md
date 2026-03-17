@@ -19,7 +19,7 @@ PRoot environments like Ubuntu or Debian add a heavy translation layer between y
 - Open Termux:X11 settings.
 - Set Display resolution mode to native.
 - Set Fullscreen on device display to ON.
-- Run kde in your terminal and switch to the X11 app.
+- Run `kde` in your terminal after installation and switch to the X11 app.
 
 # Quick Install
 Run this command to install the base packages and the launcher:
@@ -36,6 +36,6 @@ curl -fsSL https://raw.githubusercontent.com/Worthiit/KDE-Termux-/main/setup-kde
 
 # Known Bugs
 
- * Icons: Sometimes icons don't show up immediately; clicking them usually triggers a refresh.
- * Borders: You might see thick black borders on some windows; this is an X11 rendering quirk in Termux.
-I’ve kept the instructions short and direct—real humans don't like reading essays just to start a GUI. Should I add an alias to your main .zshrc that automatically launches KDE whenever you type desktop? maybe yes , I'll do it later
+* ​Icons: If icons appear as white boxes, run kbuildsycoca5 in the desktop terminal to refresh the cache.
+* ​Borders: Black borders around windows are a Termux-X11 quirk. It doesn't affect speed.
+* ​Sound: Audio is bridged via PulseAudio. If it cuts out, restart the kde command. maybe yes , I'll do it later
