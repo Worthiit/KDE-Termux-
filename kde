@@ -1,11 +1,19 @@
 #!/data/data/com.termux/files/usr/bin/bash
+killall termux-x11 pulseaudio dbus-daemon 2>/dev/null
+rm -rf /tmp/.X11-unix /tmp/pulse-* ~/.cache/xdg-runtime
 
-echo -e "\033[1;36m[+] Prepping Native KDE (No PRoot)...\033[0m"
-pkg update -y
-pkg install -y x11-repo
-pkg install -y termux-x11-nightly pulseaudio dbus plasma-desktop-minimal xterm p7zip wget 
+export XDG_RUNTIME_DIR="$HOME/.cache/xdg-runtime"
+mkdir -p "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
 
-curl -fsSL "https://raw.githubusercontent.com/Worthiit/KDE-Termux-/main/kde" -o $PREFIX/bin/kde
-chmod +x $PREFIX/bin/kde
+pulseaudio --start --exit-idle-time=-1 &
+sleep 2
 
-echo -e "\033[1;32m[✔] Install complete. Use 'kde' to launch.\033[0m"
+pactl load-module module-aaudio-sink
+AAUDIO_SINK=$(pactl list short sinks | grep aaudio | awk '{print $2}')
+[ -n "$AAUDIO_SINK" ] && pactl set-default-sink "$AAUDIO_SINK"
+
+termux-x11 :0 & sleep 3
+am start -n com.termux.x11/.MainActivity &
+
+export DISPLAY=:0 PULSE_SERVER=$(pactl info | grep "Server String" | cut -d' ' -f3)
+dbus-launch --exit-with-session startplasma-x11
