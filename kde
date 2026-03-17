@@ -1,19 +1,16 @@
 #!/data/data/com.termux/files/usr/bin/bash
-killall termux-x11 pulseaudio dbus-daemon 2>/dev/null
-rm -rf /tmp/.X11-unix /tmp/pulse-* ~/.cache/xdg-runtime
+killall termux-x11 2>/dev/null
+rm -rf ~/.cache/xdg-runtime /tmp/.X11-unix/X0
 
 export XDG_RUNTIME_DIR="$HOME/.cache/xdg-runtime"
 mkdir -p "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
 
-pulseaudio --start --exit-idle-time=-1 &
-sleep 2
-
+pulseaudio --start --exit-idle-time=-1 & sleep 2
 pactl load-module module-aaudio-sink
-AAUDIO_SINK=$(pactl list short sinks | grep aaudio | awk '{print $2}')
-[ -n "$AAUDIO_SINK" ] && pactl set-default-sink "$AAUDIO_SINK"
+pactl set-default-sink "$(pactl list short sinks | grep aaudio | awk '{print $2}')"
 
 termux-x11 :0 & sleep 3
 am start -n com.termux.x11/.MainActivity &
 
 export DISPLAY=:0 PULSE_SERVER=$(pactl info | grep "Server String" | cut -d' ' -f3)
-dbus-launch --exit-with-session startplasma-x11
+startplasma-x11
