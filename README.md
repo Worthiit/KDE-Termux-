@@ -5,17 +5,33 @@ This project allows you to run KDE Plasma natively in Termux for maximum perform
 Prerequisites
  * Install the Termux:X11 app on your Android device.
  * In Termux:X11 settings, set Display resolution mode to "native" for the best experience.
-Quick Install
+
+
+
+# Why Native?
+
+PRoot environments like Ubuntu or Debian add a heavy translation layer between your hardware and the OS. By running KDE natively, we use Termux's own libraries for 1:1 speed and better battery life.
+
+
+# Setup (Important)
+
+- Before launching, you need the Termux:X11 app installed.
+- Open Termux:X11 settings.
+- Set Display resolution mode to native.
+- Set Fullscreen on device display to ON.
+- Run kde in your terminal and switch to the X11 app.
+
+# Quick Install
 Run this command to install the base packages and the launcher:
 ```
-curl -fsSL https://raw.githubusercontent.com/YourRepo/NativeKDE/main/install_kde.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Worthiit/KDE-Termux-/main/setup-kde | bash
+
 ```
 
-How to use
-Once installed, just type:
-`kde`
+# How to use /commands
 
-Then switch to the Termux:X11 app to see your desktop.
+- `kde`: Cleans up old sessions and starts the Plasma desktop in Termux:X11 app.
+- `setup-kde`: Re-installs dependencies and refreshes the launcher.
 
 
 # Known Bugs
